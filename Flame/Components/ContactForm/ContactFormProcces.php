@@ -14,11 +14,9 @@ class ContactFormProcces extends \Nette\Object
 {
 
 	/**
-	 * @var array
+	 * @var string
 	 */
-	private $cityEmails = array(
-		'praha@brutalkruhac.cz', 'ustinl@brutalkruhac.cz', 'liberec@brutalkruhac.cz'
-	);
+	private $ownerEmail;
 
 	/**
 	 * @var \Nette\Templating\FileTemplate $this->fileTemplate
@@ -29,6 +27,14 @@ class ContactFormProcces extends \Nette\Object
 	 * @var \Nette\Mail\SmtpMailer $mailer
 	 */
 	private $mailer;
+
+	/**
+	 * @param $email
+	 */
+	public function __construct($email)
+	{
+		$this->ownerEmail = (string) $email;
+	}
 
 	/**
 	 * @param \Nette\Mail\SmtpMailer $mailer
@@ -58,24 +64,17 @@ class ContactFormProcces extends \Nette\Object
 			return;
 		}
 
-		if(!isset($this->cityEmails[$values->city])){
-			$form->addError('Vybrali jste nepovolené město!');
-			return;
-		}
-
 		$this->fileTemplate->setFile(__DIR__ . '/MailBodyTemplate.latte');
 		$this->fileTemplate->registerFilter(\Nette\Callback::create(new \Nette\Latte\Engine()));
 		$this->fileTemplate->name = $values->name;
 		$this->fileTemplate->email = $values->email;
 		$this->fileTemplate->text = $values->message;
 
-		$toEmail = $this->cityEmails[$values->city];
-
 		try {
 			$message = new \Nette\Mail\Message();
 			$message->setSubject($values->subject)
 				->setFrom($values->email, $values->name)
-				->addTo($toEmail, $toEmail)
+				->addTo($this->ownerEmail, $this->ownerEmail)
 				->setHtmlBody($this->fileTemplate);
 
 			$this->mailer->send($message);
