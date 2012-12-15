@@ -27,10 +27,7 @@ class ContactForm extends \Flame\Application\UI\Form
 
 		$this->addAntiSpam('spam');
 
-		$this->addSelect('city', 'Město', array('Praha', 'Ústí nad Lebem', 'Liberec'))
-			->setRequired();
-
-		$this->addText('name', 'Jméno')
+		$this->addText('name', 'Jméno a Příjmení')
 			->setRequired();
 
 		$this->addText('email', 'Váš email')
