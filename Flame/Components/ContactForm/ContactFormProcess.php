@@ -10,7 +10,7 @@
 
 namespace Flame\Components\ContactForm;
 
-class ContactFormProcces extends \Nette\Object
+class ContactFormProcess extends \Nette\Object
 {
 
 	/**
