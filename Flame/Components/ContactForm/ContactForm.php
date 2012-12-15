@@ -10,7 +10,7 @@
 
 namespace Flame\Components\ContactForm;
 
-class ContactForm extends \Brutal\Application\UI\Form
+class ContactForm extends \Flame\Application\UI\Form
 {
 
 	public function __construct()
