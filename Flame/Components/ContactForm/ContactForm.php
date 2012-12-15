@@ -48,7 +48,7 @@ class ContactForm extends \Flame\Application\UI\Form
 
 		$this->addAntiSpam('spam');
 
-		$this->addText('name', 'Jméno a Příjmení')
+		$this->addText('name', 'Jméno a příjmení')
 			->setRequired();
 
 		$this->addText('email', 'Váš email')
